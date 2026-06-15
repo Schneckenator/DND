@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    font-family: 'Cinzel', serif;
+    background: #17120c;
+    color: #f0e6d2;
+}
+
+header {
+    text-align: center;
+    padding: 40px;
+    background: linear-gradient(#352518,#17120c);
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+nav {
+    text-align: center;
+    padding: 15px;
+    background: #24170f;
+}
+
+nav a {
+    color: gold;
+    text-decoration: none;
+    margin: 15px;
+    font-weight: bold;
+}
+
+section {
+    padding: 30px;
+}
+
+.charakter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 20px;
+}
+
+.karte {
+    background: #2a1d14;
+    border: 2px solid goldenrod;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255,215,0,.3);
+}
+
+.karte img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.karte h3 {
+    padding-left: 15px;
+}
+
+.karte ul {
+    list-style: none;
+}
+
+.quest,
+.ort {
+    background: #2a1d14;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-left: 5px solid gold;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    background: #2a1d14;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #24170f;
+}
