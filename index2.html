@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>D&D Kampagnenbuch</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--gold:#d4af37;
+--paper:#efe3c2;
+--dark:#17120d;
+--panel:#241b13;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'EB Garamond',serif;
+background:
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1800&q=80");
+background-size:cover;
+background-attachment:fixed;
+color:var(--paper);
+}
+
+header{
+text-align:center;
+padding:50px;
+background:rgba(0,0,0,.5);
+backdrop-filter:blur(6px);
+border-bottom:3px solid var(--gold);
+}
+
+header h1{
+font-family:'Cinzel',serif;
+font-size:3rem;
+color:var(--gold);
+}
+
+header p{
+font-size:1.2rem;
+margin-top:10px;
+}
+
+nav{
+display:flex;
+justify-content:center;
+gap:20px;
+padding:15px;
+background:#130f0b;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+nav a{
+color:var(--gold);
+text-decoration:none;
+font-weight:bold;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+padding:30px;
+}
+
+.panel{
+background:rgba(36,27,19,.92);
+border:2px solid var(--gold);
+border-radius:15px;
+padding:25px;
+margin-bottom:30px;
+box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+.panel h2{
+font-family:'Cinzel',serif;
+color:var(--gold);
+margin-bottom:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1a140f;
+border:1px solid #7d5f16;
+border-radius:12px;
+overflow:hidden;
+}
+
+.card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.card-content{
+padding:15px;
+}
+
+.card h3{
+color:var(--gold);
+margin-bottom:10px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.stat{
+background:#2d2218;
+padding:8px;
+border-radius:6px;
+}
+
+textarea{
+width:100%;
+height:250px;
+background:#1a140f;
+border:1px solid var(--gold);
+color:white;
+padding:15px;
+font-size:18px;
+}
+
+.quest{
+background:#1a140f;
+padding:12px;
+margin-bottom:10px;
+border-left:4px solid var(--gold);
+}
+
+.quest.done{
+opacity:.6;
+border-left-color:green;
+}
+
+input,
+select{
+width:100%;
+padding:10px;
+margin-top:5px;
+margin-bottom:10px;
+background:#1a140f;
+color:white;
+border:1px solid var(--gold);
+}
+
+button{
+background:var(--gold);
+border:none;
+padding:10px 15px;
+cursor:pointer;
+font-weight:bold;
+}
+
+ul{
+padding-left:20px;
+}
+
+li{
+margin-bottom:5px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+color:#aaa;
+}
+
+.gold-box{
+font-size:2rem;
+text-align:center;
+padding:15px;
+background:#1a140f;
+border-radius:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>⚔️ Chroniken der Helden ⚔️</h1>
+<p>Das digitale Kampagnenbuch unserer D&D-Gruppe</p>
+</header>
+
+<nav>
+<a href="#dashboard">Dashboard</a>
+<a href="#chars">Charaktere</a>
+<a href="#quests">Quests</a>
+<a href="#orte">Orte</a>
+<a href="#npcs">NPCs</a>
+<a href="#tagebuch">Tagebuch</a>
+</nav>
+
+<div class="container">
+
+<section id="dashboard" class="panel">
+<h2>📜 Kampagnenübersicht</h2>
+
+<div class="gold-box">
+💰 Gruppengold:
+<span id="goldDisplay">250</span> GP
+</div>
+
+<br>
+
+<label>Gold ändern</label>
+<input id="goldInput" type="number">
+<button onclick="saveGold()">Speichern</button>
+</section>
+
+<section id="chars" class="panel">
+
+<h2>🛡️ Heldengruppe</h2>
+
+<div class="cards">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=900&q=80">
+
+<div class="card-content">
+<h3>Kämpfer</h3>
+
+<div class="stats">
+<div class="stat">Level: 1</div>
+<div class="stat">HP: 12</div>
+<div class="stat">AC: 18</div>
+<div class="stat">STR: 16</div>
+<div class="stat">DEX: 12</div>
+<div class="stat">CON: 15</div>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=900&q=80">
+
+<div class="card-content">
+<h3>Magier</h3>
+
+<div class="stats">
+<div class="stat">Level: 1</div>
+<div class="stat">HP: 8</div>
+<div class="stat">AC: 12</div>
+<div class="stat">INT: 16</div>
+<div class="stat">WIS: 14</div>
+<div class="stat">CHA: 10</div>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43?auto=format&fit=crop&w=900&q=80">
+
+<div class="card-content">
+<h3>Waldläufer</h3>
+
+<div class="stats">
+<div class="stat">Level: 1</div>
+<div class="stat">HP: 11</div>
+<div class="stat">AC: 15</div>
+<div class="stat">DEX: 16</div>
+<div class="stat">WIS: 15</div>
+<div class="stat">STR: 13</div>
+</div>
+
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80">
+
+<div class="card-content">
+<h3>Kleriker</h3>
+
+<div class="stats">
+<div class="stat">Level: 1</div>
+<div class="stat">HP: 10</div>
+<div class="stat">AC: 17</div>
+<div class="stat">WIS: 17</div>
+<div class="stat">STR: 14</div>
+<div class="stat">CHA: 12</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</section>
+
+<section id="quests" class="panel">
+
+<h2>🗡️ Questlog</h2>
+
+<div class="quest">
+☐ Findet die verlorene Mine
+</div>
+
+<div class="quest done">
+☑ Goblinlager beseitigt
+</div>
+
+<div class="quest">
+☐ Bürgermeister treffen
+</div>
+
+</section>
+
+<section id="orte" class="panel">
+
+<h2>🏰 Orte</h2>
+
+<ul>
+<li>Phandalin</li>
+<li>Verlassene Mine</li>
+<li>Goblinhöhle</li>
+<li>Alte Zwergenstraße</li>
+</ul>
+
+</section>
+
+<section id="npcs" class="panel">
+
+<h2>👤 NPC-Verzeichnis</h2>
+
+<ul>
+<li>Sildar Hallwinter</li>
+<li>Toblen Stonehill</li>
+<li>Glasstab</li>
+</ul>
+
+</section>
+
+<section id="tagebuch" class="panel">
+
+<h2>📖 Kampagnentagebuch</h2>
+
+<textarea id="notes"></textarea>
+
+<br><br>
+
+<button onclick="saveNotes()">
+Notizen speichern
+</button>
+
+</section>
+
+</div>
+
+<footer>
+D&D Kampagnenbuch • Automatische Speicherung im Browser
+</footer>
+
+<script>
+
+const notes = document.getElementById("notes");
+
+if(localStorage.getItem("campaignNotes")){
+notes.value = localStorage.getItem("campaignNotes");
+}
+
+function saveNotes(){
+localStorage.setItem(
+"campaignNotes",
+notes.value
+);
+
+alert("Notizen gespeichert");
+}
+
+if(localStorage.getItem("groupGold")){
+document.getElementById("goldDisplay").innerText =
+localStorage.getItem("groupGold");
+}
+
+function saveGold(){
+
+const value =
+document.getElementById("goldInput").value;
+
+localStorage.setItem(
+"groupGold",
+value
+);
+
+document.getElementById("goldDisplay").innerText =
+value;
+}
+
+</script>
+
+</body>
+</html>
