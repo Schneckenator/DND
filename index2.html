@@ -199,8 +199,11 @@ border-radius:10px;
 <body>
 
 <header>
-<h1>⚔️ Chroniken der Helden ⚔️</h1>
+<h1>Das Vermächtnis des Wolfes </h1>
 <p>Das digitale Kampagnenbuch unserer D&D-Gruppe</p>
+<button onclick="window.location.href='index.html'">
+    Zur alten Seite
+</button>
 </header>
 
 <nav>
@@ -215,7 +218,7 @@ border-radius:10px;
 <div class="container">
 
 <section id="dashboard" class="panel">
-<h2>📜 Kampagnenübersicht</h2>
+<h2>Kampagnenübersicht</h2>
 
 <div class="gold-box">
 💰 Gruppengold:
@@ -231,7 +234,7 @@ border-radius:10px;
 
 <section id="chars" class="panel">
 
-<h2>🛡️ Heldengruppe</h2>
+<h2>Heldengruppe</h2>
 
 <div class="cards">
 
@@ -312,50 +315,47 @@ border-radius:10px;
 
 <section id="quests" class="panel">
 
-<h2>🗡️ Questlog</h2>
+<h2>Questlog</h2>
 
-<div class="quest">
-☐ Findet die verlorene Mine
-</div>
+<input id="newQuest" placeholder="Neue Quest">
 
-<div class="quest done">
-☑ Goblinlager beseitigt
-</div>
+<button onclick="addQuest()">
+Quest hinzufügen
+</button>
 
-<div class="quest">
-☐ Bürgermeister treffen
-</div>
+<div id="questList"></div>
 
 </section>
 
 <section id="orte" class="panel">
 
-<h2>🏰 Orte</h2>
+<h2>Orte</h2>
 
-<ul>
-<li>Phandalin</li>
-<li>Verlassene Mine</li>
-<li>Goblinhöhle</li>
-<li>Alte Zwergenstraße</li>
-</ul>
+<input id="newPlace" placeholder="Neuen Ort hinzufügen">
+
+<button onclick="addPlace()">
+Ort hinzufügen
+</button>
+
+<ul id="placeList"></ul>
 
 </section>
 
 <section id="npcs" class="panel">
 
-<h2>👤 NPC-Verzeichnis</h2>
+<h2>NPC-Verzeichnis</h2>
 
-<ul>
-<li>Sildar Hallwinter</li>
-<li>Toblen Stonehill</li>
-<li>Glasstab</li>
-</ul>
+<input id="newNpc" placeholder="Neuen NPC hinzufügen">
+
+<button onclick="addNpc()">
+NPC hinzufügen
+</button>
+
+<ul id="npcList"></ul>
 
 </section>
 
-<section id="tagebuch" class="panel">
-
-<h2>📖 Kampagnentagebuch</h2>
+<h2>Kampagnentagebuch</h2>
 
 <textarea id="notes"></textarea>
 
@@ -374,14 +374,17 @@ D&D Kampagnenbuch • Automatische Speicherung im Browser
 </footer>
 
 <script>
+// ------------------
+// NOTIZEN
+// ------------------
 
 const notes = document.getElementById("notes");
 
-if(localStorage.getItem("campaignNotes")){
-notes.value = localStorage.getItem("campaignNotes");
-}
+notes.value =
+localStorage.getItem("campaignNotes") || "";
 
 function saveNotes(){
+
 localStorage.setItem(
 "campaignNotes",
 notes.value
@@ -390,27 +393,236 @@ notes.value
 alert("Notizen gespeichert");
 }
 
-if(localStorage.getItem("groupGold")){
+// ------------------
+// GOLD
+// ------------------
+
+let gold =
+localStorage.getItem("groupGold") || 250;
+
 document.getElementById("goldDisplay").innerText =
-localStorage.getItem("groupGold");
-}
+gold;
 
 function saveGold(){
 
-const value =
+gold =
 document.getElementById("goldInput").value;
 
 localStorage.setItem(
 "groupGold",
-value
+gold
 );
 
 document.getElementById("goldDisplay").innerText =
-value;
+gold;
 }
-<button onclick="window.location.href='index.html'">
-    Zu den Charakteren
+
+// ------------------
+// QUESTS
+// ------------------
+
+let quests =
+JSON.parse(
+localStorage.getItem("quests")
+) || [];
+
+function saveQuests(){
+
+localStorage.setItem(
+"quests",
+JSON.stringify(quests)
+);
+
+renderQuests();
+}
+
+function addQuest(){
+
+const text =
+document.getElementById("newQuest").value;
+
+if(text === "") return;
+
+quests.push({
+text:text,
+done:false
+});
+
+document.getElementById("newQuest").value="";
+
+saveQuests();
+}
+
+function toggleQuest(index){
+
+quests[index].done =
+!quests[index].done;
+
+saveQuests();
+}
+
+function deleteQuest(index){
+
+quests.splice(index,1);
+
+saveQuests();
+}
+
+function renderQuests(){
+
+const list =
+document.getElementById("questList");
+
+list.innerHTML = "";
+
+quests.forEach((quest,index)=>{
+
+list.innerHTML += `
+<div class="quest ${quest.done ? 'done' : ''}">
+<input
+type="checkbox"
+${quest.done ? 'checked' : ''}
+onclick="toggleQuest(${index})">
+
+${quest.text}
+
+<button onclick="deleteQuest(${index})">
+🗑️
 </button>
+
+</div>
+`;
+});
+
+}
+
+renderQuests();
+
+// ------------------
+// ORTE
+// ------------------
+
+let places =
+JSON.parse(
+localStorage.getItem("places")
+) || [];
+
+function savePlaces(){
+
+localStorage.setItem(
+"places",
+JSON.stringify(places)
+);
+
+renderPlaces();
+}
+
+function addPlace(){
+
+const text =
+document.getElementById("newPlace").value;
+
+if(text==="") return;
+
+places.push(text);
+
+document.getElementById("newPlace").value="";
+
+savePlaces();
+}
+
+function deletePlace(index){
+
+places.splice(index,1);
+
+savePlaces();
+}
+
+function renderPlaces(){
+
+const list =
+document.getElementById("placeList");
+
+list.innerHTML="";
+
+places.forEach((place,index)=>{
+
+list.innerHTML += `
+<li>
+${place}
+<button onclick="deletePlace(${index})">
+🗑️
+</button>
+</li>
+`;
+});
+
+}
+
+renderPlaces();
+
+// ------------------
+// NPCs
+// ------------------
+
+let npcs =
+JSON.parse(
+localStorage.getItem("npcs")
+) || [];
+
+function saveNpcs(){
+
+localStorage.setItem(
+"npcs",
+JSON.stringify(npcs)
+);
+
+renderNpcs();
+}
+
+function addNpc(){
+
+const text =
+document.getElementById("newNpc").value;
+
+if(text==="") return;
+
+npcs.push(text);
+
+document.getElementById("newNpc").value="";
+
+saveNpcs();
+}
+
+function deleteNpc(index){
+
+npcs.splice(index,1);
+
+saveNpcs();
+}
+
+function renderNpcs(){
+
+const list =
+document.getElementById("npcList");
+
+list.innerHTML="";
+
+npcs.forEach((npc,index)=>{
+
+list.innerHTML += `
+<li>
+${npc}
+<button onclick="deleteNpc(${index})">
+🗑️
+</button>
+</li>
+`;
+});
+
+}
+
+renderNpcs();
 </script>
 
 </body>
