@@ -236,79 +236,61 @@ border-radius:10px;
 
 <h2>Heldengruppe</h2>
 
-<div class="cards">
-
 <div class="card">
-<img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=900&q=80">
 
-<div class="card-content">
-<h3>Kämpfer</h3>
+    <div class="card-content">
 
-<div class="stats">
-<div class="stat">Level: 1</div>
-<div class="stat">HP: 12</div>
-<div class="stat">AC: 18</div>
-<div class="stat">STR: 16</div>
-<div class="stat">DEX: 12</div>
-<div class="stat">CON: 15</div>
-</div>
+        <h3>Charakter 1</h3>
 
-</div>
-</div>
+        <label>Name</label>
+        <input id="char1_name">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=900&q=80">
+        <label>Bild-URL</label>
+        <input id="char1_image">
 
-<div class="card-content">
-<h3>Magier</h3>
+        <img id="char1_preview" style="width:100%;max-height:250px;object-fit:cover;">
 
-<div class="stats">
-<div class="stat">Level: 1</div>
-<div class="stat">HP: 8</div>
-<div class="stat">AC: 12</div>
-<div class="stat">INT: 16</div>
-<div class="stat">WIS: 14</div>
-<div class="stat">CHA: 10</div>
-</div>
+        <label>Klasse</label>
+        <input id="char1_class">
 
-</div>
-</div>
+        <label>Level</label>
+        <input id="char1_level" type="number">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43?auto=format&fit=crop&w=900&q=80">
+        <label>HP</label>
+        <input id="char1_hp" type="number">
 
-<div class="card-content">
-<h3>Waldläufer</h3>
+        <label>AC</label>
+        <input id="char1_ac" type="number">
 
-<div class="stats">
-<div class="stat">Level: 1</div>
-<div class="stat">HP: 11</div>
-<div class="stat">AC: 15</div>
-<div class="stat">DEX: 16</div>
-<div class="stat">WIS: 15</div>
-<div class="stat">STR: 13</div>
-</div>
+        <label>STR</label>
+        <input id="char1_str" type="number">
 
-</div>
-</div>
+        <label>DEX</label>
+        <input id="char1_dex" type="number">
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80">
+        <label>CON</label>
+        <input id="char1_con" type="number">
 
-<div class="card-content">
-<h3>Kleriker</h3>
+        <label>INT</label>
+        <input id="char1_int" type="number">
 
-<div class="stats">
-<div class="stat">Level: 1</div>
-<div class="stat">HP: 10</div>
-<div class="stat">AC: 17</div>
-<div class="stat">WIS: 17</div>
-<div class="stat">STR: 14</div>
-<div class="stat">CHA: 12</div>
-</div>
+        <label>WIS</label>
+        <input id="char1_wis" type="number">
 
-</div>
-</div>
+        <label>CHA</label>
+        <input id="char1_cha" type="number">
+
+        <label>Ausrüstung</label>
+        <textarea id="char1_equipment"></textarea>
+
+        <label>Notizen</label>
+        <textarea id="char1_notes"></textarea>
+
+        <button onclick="saveCharacter(1)">
+            Charakter speichern
+        </button>
+
+    </div>
 
 </div>
 </section>
